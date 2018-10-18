@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Vivado v2018.2 (64-bit)
+# SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
+# IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
+# Start of session at: Thu Oct 18 16:31:47 2018
+# Process ID: 2164
+# Current directory: D:/Drive/1/UP Files/CoE111/Vivado/demo/running_lights_1/running_lights_1.runs/synth_1
+# Command line: vivado.exe -log running_lights.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source running_lights.tcl
+# Log file: D:/Drive/1/UP Files/CoE111/Vivado/demo/running_lights_1/running_lights_1.runs/synth_1/running_lights.vds
+# Journal file: D:/Drive/1/UP Files/CoE111/Vivado/demo/running_lights_1/running_lights_1.runs/synth_1\vivado.jou
+#-----------------------------------------------------------
+source running_lights.tcl -notrace
