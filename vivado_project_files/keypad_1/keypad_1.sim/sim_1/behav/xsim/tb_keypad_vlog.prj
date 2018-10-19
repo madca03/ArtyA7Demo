@@ -1,0 +1,10 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../keypad_1.srcs/sources_1/new/keypad.v" \
+"../../../../keypad_1.srcs/sim_1/new/tb_keypad.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
