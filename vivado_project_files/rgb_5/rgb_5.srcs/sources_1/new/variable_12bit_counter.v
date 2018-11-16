@@ -37,8 +37,7 @@ module variable_12bit_counter(
             count_limit <= 0;
         end
         else begin
-            if (load) count_limit <= new_count_limit;
-            else count_limit <= 0;
+            if (load) count_limit <= new_count_limit;   // latch
         end
     end
     

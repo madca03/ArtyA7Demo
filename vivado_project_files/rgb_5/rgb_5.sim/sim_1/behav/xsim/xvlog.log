@@ -1,0 +1,6 @@
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/raszagal/Desktop/ArtyA7Demo-master/ArtyA7Demo-master/vivado_project_files/rgb_5/rgb_5.srcs/sources_1/new/rgb_led_driver.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module rgb_led_driver
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/raszagal/Desktop/ArtyA7Demo-master/ArtyA7Demo-master/vivado_project_files/rgb_5/rgb_5.srcs/sources_1/new/variable_12bit_counter.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module variable_12bit_counter
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/raszagal/Desktop/ArtyA7Demo-master/ArtyA7Demo-master/vivado_project_files/rgb_5/rgb_5.srcs/sim_1/new/tb_rgb_led_driver.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module tb_rgb_led_driver
