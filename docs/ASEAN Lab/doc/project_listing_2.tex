@@ -1,0 +1,138 @@
+\begin{lstlisting}[style={verilog-style}, caption={Code of \texttt{led\_driver.v}} , label={code:driver}]
+module led_driver(
+	input clk,
+	input nrst,
+	input [7:0] pw,
+	input [2:0] rgb_sel,
+	input en,
+	output [2:0] rgb_drv
+);
+
+    localparam [16:0] maxtick = 100000; // Ticks in 1 ms
+    
+    reg [16:0] max_pw_r_count, max_pw_g_count, max_pw_b_count;
+    reg [16:0] r_high_count, g_high_count, b_high_count;
+    reg [16:0] r_low_count, g_low_count, b_low_count;
+    reg r_high_en, g_high_en, b_high_en;
+
+    // Set maximum tick counts    
+    always@(posedge clk or negedge nrst)
+        if(!nrst)
+            begin
+                max_pw_r_count <= 17'd0;
+                max_pw_g_count <= 17'd0;
+                max_pw_b_count <= 17'd0;
+            end
+        else
+            case({rgb_sel, en})
+                4'd8:
+                    begin
+                        max_pw_r_count <= 17'd197 * {9'd0, pw};
+                        max_pw_g_count <= max_pw_g_count;
+                        max_pw_b_count <= max_pw_b_count;
+                    end
+                4'd4:
+                    begin
+                        max_pw_r_count <= max_pw_r_count;
+                        max_pw_g_count <= 17'd197 * {9'd0, pw};
+                        max_pw_b_count <= max_pw_b_count;
+                    end
+                4'd2:
+                    begin
+                        max_pw_r_count <= max_pw_r_count;
+                        max_pw_g_count <= max_pw_g_count;
+                        max_pw_b_count <= 17'd197 * {9'd0, pw};
+                    end
+                default:
+                    begin
+                        max_pw_r_count <= max_pw_r_count;
+                        max_pw_g_count <= max_pw_g_count;
+                        max_pw_b_count <= max_pw_b_count;
+                    end
+            endcase
+    
+    // HIGH pulse tick counter
+    always@(posedge clk or negedge nrst)
+        if(!nrst)
+            begin
+                r_high_count <= 17'd0;
+                g_high_count <= 17'd0;
+                b_high_count <= 17'd0;
+            end
+        else
+            if(en)
+                begin
+                    if((r_high_count < max_pw_r_count) && (r_high_en == 1))
+                        r_high_count <= r_high_count + 17'd1;
+                    else
+                        r_high_count <= 17'd0;
+                    if((g_high_count < max_pw_g_count) && (g_high_en == 1))
+                        g_high_count <= g_high_count + 17'd1;
+                    else
+                        g_high_count <= 17'd0;
+                    if((b_high_count < max_pw_b_count) && (b_high_en == 1))
+                        b_high_count <= b_high_count + 17'd1;
+                    else
+                        b_high_count <= 17'd0;
+                end
+            else
+                begin
+                    r_high_count <= 17'd0;
+                    g_high_count <= 17'd0;
+                    b_high_count <= 17'd0;
+                end
+
+    // LOW pulse tick counter
+    always@(posedge clk or negedge nrst)
+        if(!nrst)
+            begin
+                r_low_count <= 17'd0;
+                g_low_count <= 17'd0;
+                b_low_count <= 17'd0;
+            end
+        else
+            if(en)
+                begin
+                    if((r_low_count < (maxtick - max_pw_r_count)) && (r_high_en == 0))
+                        r_low_count <= r_low_count + 17'd1;
+                    else
+                        r_low_count <= 17'd0;
+                    if((g_low_count < (maxtick - max_pw_g_count)) && (g_high_en == 0))
+                        g_low_count <= g_low_count + 17'd1;
+                    else
+                        g_low_count <= 17'd0;
+                    if((b_low_count < (maxtick - max_pw_b_count)) && (b_high_en == 0))
+                        b_low_count <= b_low_count + 17'd1;
+                    else
+                        b_low_count <= 17'd0;
+                end
+            else
+                begin
+                    r_low_count <= 17'd0;
+                    g_low_count <= 17'd0;
+                    b_low_count <= 17'd0;
+                end
+
+    // HIGH and LOW pulse tick counter enabler
+    always@(*)
+        begin
+            if(r_high_count == max_pw_r_count)
+                r_high_en = 0;
+            else
+                r_high_en = 1;
+            if(g_high_count == max_pw_g_count)
+                g_high_en = 0;
+            else
+                g_high_en = 1;
+            if(b_high_count == max_pw_b_count)
+                b_high_en = 0;
+            else
+                b_high_en = 1;
+        end
+
+    assign rgb_drv[2] = en & r_high_en;
+    assign rgb_drv[1] = en & g_high_en;
+    assign rgb_drv[0] = en & b_high_en;
+
+endmodule
+\end{lstlisting}

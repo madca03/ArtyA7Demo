@@ -1,0 +1,40 @@
+\clearpage
+\setcounter{page}{1}
+
+\begin{center}
+    \vspace*{3em}
+    {\LARGE \textbf{Machine Problem}}\\
+    {\vspace{1.5em}}
+    {\large Tri-color LED PWM}\\
+\end{center}
+
+\section{Introduction}
+    The intensity of the tri-color LEDs of the Artix-7\texttrademark{} 35T board can be controlled by varying its pulse width. This process of controlling the pulse width is called the pulse width modulation (PWM). For this project, you are tasked to make a PWM for the three colors of the LED, red, green, and blue depending on the value of the 8-bit input.
+
+\section{Pulse Width Modulator}
+
+\begin{enumerate}
+    \item Implement the pulse width modulator. The top-level module should be defined as follows:
+    
+    \input{doc/project_listing_1}
+
+    \item Upon asserting \texttt{nrst} to 1, the notification output for 
+    \item \texttt{nibble_in} is the input that will dictate the pulse width of each of the colors. To completely send the 8-bit input, 
+\end{enumerate}
+
+\section{LED Driver}
+
+\begin{enumerate}
+    \item Implement the LED driver. This will accept an 8-bit input and outputs a corresponding signal for the LED with a duration dictated by the input. Save this as "\texttt{led\_driver.v}".
+    
+    \input{doc/project_listing_2}
+    
+    \item The 8-bit input \texttt{pw} is the input to the driver. All possible values of \texttt{pw} maps from 0\% to 50\% duty ccyle.
+    
+    \item The bus \texttt{rgb\_sel} selects between the red, green, and blue light components of the LED. This is used to specify which color you are currently setting up. Asserting \texttt{rgb\_sel[2]} to 1 selects red, asserting \texttt{rgb\_sel[1]} to 1 selects green, and asserting \texttt{rgb\_sel[0]} to 1 selects blue. Other values for \texttt{rgb\_sel} will do nothing.
+    
+    \item Asserting \texttt{en} to 1 starts the modulator by the use of counters. The modulator will start to produce the outputs necessary to drive the tri-color LED. The values of the pulse width can no longer be changed during this time (i.e.: when \texttt{en} = 1).
+    
+    \item The output is \texttt{rgb\_drv}. The red color driver is at \texttt{rgb\_drv[2]}, blue at \texttt{rgb\_drv[1]}, and the green driver is at \texttt{rgb\_drv[0]}.
+
+\end{enumerate}
