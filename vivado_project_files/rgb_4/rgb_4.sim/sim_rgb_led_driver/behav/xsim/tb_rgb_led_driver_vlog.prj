@@ -1,0 +1,11 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../rgb_4.srcs/sources_1/new/clk_1khz.v" \
+"../../../../rgb_4.srcs/sources_1/new/rgb_led_driver.v" \
+"../../../../rgb_4.srcs/sim_rgb_led_driver/imports/new/tb_rgb_led_driver.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
